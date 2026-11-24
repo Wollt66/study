@@ -1,0 +1,17 @@
+{
+  "name": "huawei-ecs-mcp-server",
+  "version": "1.0.0",
+  "description": "华为云 ECS（弹性云服务器）MCP Server（stdio），AK/SK 签名直连开放 API",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  }
+}
