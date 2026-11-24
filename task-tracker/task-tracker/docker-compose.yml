@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  user-service:
+    build: ./services/user-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-me}
+      - INTERNAL_TOKEN=${INTERNAL_TOKEN:-dev-internal-token}
+      - DB_PATH=/app/data/user.sqlite
+      - LOG_LEVEL=info
+    volumes:
+      - user_data:/app/data
+    networks:
+      - microservices-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3001/api/users/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  task-service:
+    build: ./services/task-service
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-me}
+      - INTERNAL_TOKEN=${INTERNAL_TOKEN:-dev-internal-token}
+      - DB_PATH=/app/data/task.sqlite
+      - TRACKING_SERVICE_URL=http://tracking-service:3003/api
+      - USER_SERVICE_URL=http://user-service:3001/api
+      - HTTP_TIMEOUT_MS=3000
+      - LOG_LEVEL=info
+    volumes:
+      - task_data:/app/data
+    networks:
+      - microservices-net
+    depends_on:
+      user-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3002/api/tasks/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  tracking-service:
+    build: ./services/tracking-service
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-me}
+      - INTERNAL_TOKEN=${INTERNAL_TOKEN:-dev-internal-token}
+      - DB_PATH=/app/data/tracking.sqlite
+      - TASK_SERVICE_URL=http://task-service:3002/api
+      - HTTP_TIMEOUT_MS=3000
+      - LOG_LEVEL=info
+    volumes:
+      - tracking_data:/app/data
+    networks:
+      - microservices-net
+    depends_on:
+      task-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3003/api/tracking/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  report-service:
+    build: ./services/report-service
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-me}
+      - INTERNAL_TOKEN=${INTERNAL_TOKEN:-dev-internal-token}
+      - TRACKING_SERVICE_URL=http://tracking-service:3003/api
+      - TASK_SERVICE_URL=http://task-service:3002/api
+      - HTTP_TIMEOUT_MS=3000
+      - LOG_LEVEL=info
+    networks:
+      - microservices-net
+    depends_on:
+      tracking-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3004/api/reports/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  user_data:
+  task_data:
+  tracking_data:
