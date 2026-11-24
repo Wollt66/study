@@ -1,0 +1,106 @@
+@startuml 数据实体模型图
+title 模拟数据引擎领域实体模型（内存模型，替代传统 ER 图）\n本系统为纯前端架构，无持久化数据库；本图描述引擎每 tick 产出的快照领域模型
+
+skinparam backgroundColor #050816
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName "Microsoft YaHei"
+skinparam class {
+  BorderColor #00F0FF
+  BackgroundColor #0D142E
+  ArrowColor #FF2D95
+  FontName "Microsoft YaHei"
+}
+
+class Snapshot <<每 tick 产出>> {
+  +simTime : number
+  +country : RegionAgg
+  +provinces : RegionAgg[]
+  +cities : RegionAgg[]
+  +intersections : IntersectionEntity[]
+  +accidents : AccidentRecord[]
+}
+
+class RegionAgg <<省/市/全国通用>> {
+  +code : number  〔adcode 主键〕
+  +name : string
+  +level : 'country'|'province'|'city'
+  +provinceCode : number
+  +congestionIndex : number  〔0~10〕
+  +activeVehicles : number
+  +accidentCountToday : number
+  +avgSpeed : number  〔15~80 km/h〕
+  +vehicleTypes : VehicleTypeStat[]
+  +trend : TrendPoint[]  〔288 点环形缓冲〕
+  +hourFlow : HourFlow[]
+}
+
+class VehicleTypeStat {
+  +typeCode : 'car'|'bus'|'truck'|'ev'
+  +typeName : string
+  +activeCount : number
+  +ratio : number  〔Σratio = 100%〕
+}
+
+class TrendPoint {
+  +time : number
+  +value : number  〔拥堵指数〕
+}
+
+class HourFlow {
+  +hour : number  〔0~23〕
+  +flow : number  〔辆/时〕
+}
+
+class IntersectionEntity {
+  +intersectionId : string
+  +intersectionName : string
+  +cityCode : number
+  +flowPerHour : number
+  +congestionLevel : number
+  +typeFlow : Record<VehicleTypeCode, number>
+}
+
+class AccidentRecord <<活跃封顶 200 条>> {
+  +accidentId : string
+  +accidentType : 'rearEnd'|'scratch'|'rollover'|'pedestrian'|'other'
+  +severity : 'minor'|'moderate'|'severe'
+  +regionCode : number
+  +vehicleType : VehicleTypeCode  〔涉事类型，联动维度〕
+  +coord : [number, number]  〔经纬度，散点渲染〕
+  +occurTime : number
+  +status : 'processing'|'closed'
+}
+
+Snapshot *-- "1" RegionAgg : country（全国聚合）
+Snapshot *-- "34" RegionAgg : provinces
+Snapshot *-- "66" RegionAgg : cities（4 内置省全部地级市）
+Snapshot *-- "864" IntersectionEntity : intersections
+Snapshot *-- "≤200" AccidentRecord : accidents（活跃）
+RegionAgg *-- "4" VehicleTypeStat : vehicleTypes
+RegionAgg *-- "0..288" TrendPoint : trend
+RegionAgg *-- "24" HourFlow : hourFlow
+RegionAgg o-- "1..66" RegionAgg : 省下辖市（聚合来源）
+
+note right of RegionAgg
+  自下而上聚合（口径一致性约束）：
+  province.activeVehicles = Σ city
+  province.avgSpeed = 加权平均
+  country = 对 34 省同法聚合
+  非内置省份例外：按省权重直生成
+  （仅服务全国视图，永不下钻）
+end note
+
+note bottom of AccidentRecord
+  生成模型：泊松增量
+  λ ∝ 省权重 × hourFactor(h)
+  今日事故数为当日累计口径（只增不减）
+end note
+
+note left of Snapshot
+  主键体系：全部实体以 adcode
+  （国家统计局行政区划编码）为主键，
+  与 geoJSON feature.properties.adcode
+  对齐，杜绝"数据有值但地图不上色"
+end note
+@enduml

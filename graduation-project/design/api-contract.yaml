@@ -1,0 +1,289 @@
+---
+contract: 城市交通监控可视化大屏 · 前端数据契约
+version: 1.0.0
+date: 2026-10-31
+scope: frontend-internal
+
+description: >
+  本系统为纯前端架构（毕业设计定稿决策），无自建后端与 HTTP API。
+  本文件定义三层内部契约：L2 数据引擎产出的 Snapshot 数据结构、
+  L3 Pinia Store 对视图层暴露的 getters 派生契约、L5 组件对外发射的事件契约。
+  契约即未来接入真实后端时的替换边界——MockEngine 与真实数据源只要产出
+  相同 schema 的 Snapshot，L3/L4/L5 层零改动（设计文档 §2.2 单向依赖的工程价值）。
+
+entities:
+
+  VehicleTypeCode:
+    type: enum
+    values: [car, bus, truck, ev]
+    names:
+      car: 小汽车
+      bus: 公交车
+      truck: 货车
+      ev: 电动车
+
+  AccidentTypeCode:
+    type: enum
+    values: [rearEnd, scratch, rollover, pedestrian, other]
+    names:
+      rearEnd: 追尾
+      scratch: 刮擦
+      rollover: 侧翻
+      pedestrian: 碰撞行人
+      other: 其他
+
+  Severity:
+    type: enum
+    values: [minor, moderate, severe]
+    names:
+      minor: 轻微
+      moderate: 一般
+      severe: 严重
+
+  RegionLevel:
+    type: enum
+    values: [country, province, city]
+
+  RegionAgg:
+    type: object
+    description: 地区聚合实体（全国/省/市通用），主键 adcode
+    fields:
+      code:
+        type: integer
+        desc: 行政区划编码，全国=100000
+      name:
+        type: string
+        desc: 地图展示名（与 geoJSON name 对齐）
+      level:
+        type: RegionLevel
+      provinceCode:
+        type: integer
+      congestionIndex:
+        type: number
+        range: [0, 10]
+        desc: 拥堵指数
+      activeVehicles:
+        type: integer
+        min: 0
+        desc: 在途车辆数
+      accidentCountToday:
+        type: integer
+        min: 0
+        desc: 今日事故数（当日累计口径）
+      avgSpeed:
+        type: number
+        range: [15, 80]
+        unit: km/h
+      vehicleTypes:
+        type: VehicleTypeStat[]
+        desc: 4 类，合计 activeCount 等于 activeVehicles
+      trend:
+        type: TrendPoint[]
+        maxLength: 288
+        desc: 拥堵指数滚动窗口
+      hourFlow:
+        type: HourFlow[]
+        length: 24
+        desc: 0~23 时分时流量
+
+  VehicleTypeStat:
+    type: object
+    fields:
+      typeCode:
+        type: VehicleTypeCode
+      typeName:
+        type: string
+      activeCount:
+        type: integer
+      ratio:
+        type: number
+        range: [0, 1]
+        desc: 4 类合计为 1
+
+  TrendPoint:
+    type: object
+    fields:
+      time:
+        type: integer
+        desc: 模拟时间戳（毫秒）
+      value:
+        type: number
+        range: [0, 10]
+
+  HourFlow:
+    type: object
+    fields:
+      hour:
+        type: integer
+        range: [0, 23]
+      flow:
+        type: integer
+        unit: 辆/时
+
+  IntersectionEntity:
+    type: object
+    description: 路口实体（内置省每市 8~15 个 + 非内置省省会 3 个，共 864 个）
+    fields:
+      intersectionId:
+        type: string
+      intersectionName:
+        type: string
+        desc: 展示名，如 "中山大道 · 人民路"
+      cityCode:
+        type: integer
+      flowPerHour:
+        type: integer
+        unit: 辆/时
+      congestionLevel:
+        type: number
+        range: [0, 10]
+      typeFlow:
+        type: object
+        desc: 分类型流量 Record（VehicleTypeCode 到 integer），合计等于 flowPerHour
+
+  AccidentRecord:
+    type: object
+    description: 事故实体（活跃列表封顶 200 条）
+    fields:
+      accidentId:
+        type: string
+        desc: 事故编号，格式 AC-五位数字
+      accidentType:
+        type: AccidentTypeCode
+      severity:
+        type: Severity
+      regionCode:
+        type: integer
+        desc: 省 adcode 或市 adcode
+      vehicleType:
+        type: VehicleTypeCode
+        desc: 涉事车辆类型（联动过滤维度）
+      coord:
+        type: array
+        items: number
+        length: 2
+        desc: 经纬度坐标对，用于散点渲染
+      occurTime:
+        type: integer
+        desc: 发生时间戳（毫秒）
+      status:
+        type: enum
+        values: [processing, closed]
+
+snapshot:
+  description: L2 引擎每 tick（默认 5s）产出、经 store.applyTick 整体替换的全量快照
+  type: object
+  fields:
+    simTime:
+      type: integer
+      desc: 模拟时钟（60 倍加速），暂停即冻结此值
+    country:
+      type: RegionAgg
+      desc: 全国聚合
+    provinces:
+      type: RegionAgg[]
+      length: 34
+    cities:
+      type: RegionAgg[]
+      length: 66
+      desc: 仅 4 内置省份的全部地级市
+    intersections:
+      type: IntersectionEntity[]
+      length: 864
+    accidents:
+      type: AccidentRecord[]
+      maxLength: 200
+  invariants:
+    - 各省 activeVehicles 之和约等于全国值（误差小于 0.2%）
+    - 各车辆类型 activeCount 之和等于总量（误差小于 0.1%）
+    - 相邻两 tick 同指标变化不超过正负 15%（连续性钳制，实测 2.37%）
+    - hourFlow 呈早晚双峰分布（峰谷比实测约 5.9 倍）
+
+store-getters:
+  description: L3 Pinia Store（SSOT）对视图层暴露的派生数据契约，全部视图组件禁止自行过滤或聚合
+  filteredKpi:
+    desc: 四项 KPI 卡数据（响应地区/车辆/事故三维过滤）
+    fields:
+      - congestionIndex
+      - activeVehicles
+      - accidentCountToday
+      - avgSpeed
+  filteredIntersections:
+    desc: 路口流量 TOP10（按 flowPerHour 降序；车辆类型过滤时按 typeFlow 折算）
+  filteredAccidentTypeStat:
+    desc: 事故类型占比（当前地区加车辆类型过滤后统计，合计占比为 1）
+  filteredVehicleTypeStat:
+    desc: 在途车辆类型占比（当前地区维度，合计占比为 1）
+  filteredCongestionTrend:
+    desc: 拥堵指数趋势（当前地区维度，不超过 288 点）
+  filteredHourFlow:
+    desc: 24h 分时流量（车辆类型过滤时按 typeHourFactor 形状系数重算）
+  mapHeatData:
+    desc: 地图热力数据列表（name/value/code/metrics），随钻取层级切换（全国为省列表、省为市列表）
+  mapScatterData:
+    desc: 事故散点（地区加车辆加事故三维过滤后的活跃事故）
+  drillableCodes:
+    desc: 当前层级可下钻的 adcode 列表（全国为 4 内置省、省为省会市）
+  filterTags:
+    desc: 生效过滤标签列表（dimension/label/value，覆盖地区、车辆、事故三维）
+  currentHour:
+    desc: 模拟时钟派生的当前时段（热力图当前时段描边）
+  simClock:
+    desc: 模拟时钟（时间显示）
+
+component-events:
+  description: L5 组件经 ScreenView 转发至 Store 的上行事件契约，组件之间禁止直接通信
+  region-click:
+    source: MapChart
+    payload:
+      code: integer
+      name: string
+    target-action: store.drillDown(code)
+  back:
+    source: MapChart
+    payload: null
+    target-action: store.backLevel()
+  type-select:
+    source:
+      - AccidentPieChart
+      - VehicleRingChart
+    payload:
+      typeCode: string
+    target-action: store.selectAccidentType 或 store.selectVehicleType（再点同项即取消）
+  item-click:
+    source: IntersectionRankChart
+    payload: RankItem
+    target-action: 本地高亮，不进入全局过滤（ADR-6）
+  toggle-pause:
+    source: ControlBar
+    payload: null
+    target-action: store.togglePause
+  toggle-fullscreen:
+    source: ControlBar
+    payload: null
+    target-action: store.toggleFullscreen
+  remove:
+    source: FilterTagBar
+    payload:
+      dimension: region 或 vehicleType 或 accidentType
+    target-action: store.removeFilter(dimension)
+
+future-backend-replacement:
+  description: 接入真实后端时的替换契约（仅替换 L2 层，本节为建议的服务端接口形态）
+  transport:
+    - http-polling
+    - websocket-push
+  endpoints:
+    GET /api/traffic/snapshot:
+      desc: 轮询全量快照，响应体即本文件 snapshot 节的结构（JSON）
+      interval: 建议与服务端聚合节奏一致（如 5 秒）
+    WS /api/traffic/stream:
+      desc: 推送增量或全量快照，消息体须可归一化为 snapshot 结构
+      notes:
+        - 心跳保活
+        - 断线指数退避重连
+        - 乱序与去重由接入层处理
+  migration-notes:
+    - store.applyTick 接口不变，12 个视图组件与全部图表零改动
+    - 真实数据须在后端或接入层实现等效的连续性钳制（正负 15%），否则跳变问题回归
+    - simTime 基准更换为服务器时间；聚合逻辑视后端能力选择前置或保留前端

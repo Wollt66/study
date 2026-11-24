@@ -1,0 +1,35 @@
+:root {
+  --bg-deep: #050816;
+  --bg-panel: rgba(13, 20, 46, 0.72);
+  --bg-panel-solid: #0d142e;
+
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff2d95;
+  --neon-purple: #8a2be2;
+  --neon-green: #00ffa3;
+  --neon-amber: #ffb800;
+  --neon-red: #ff3b3b;
+  --neon-blue: #4dc3ff;
+  --neon-pink: #ff6ec7;
+
+  --text-primary: #e8f0ff;
+  --text-secondary: #c8d4f0;
+  --text-muted: #9aa7c7;
+
+  --border-neon: rgba(0, 240, 255, 0.35);
+  --border-dim: rgba(138, 43, 226, 0.35);
+
+  --radius-card: 14px;
+  --radius-inner: 10px;
+  --radius-tag: 999px;
+
+  --glow-cyan: 0 0 8px rgba(0, 240, 255, 0.35), 0 0 24px rgba(0, 240, 255, 0.12);
+  --glow-magenta: 0 0 8px rgba(255, 45, 149, 0.35), 0 0 24px rgba(255, 45, 149, 0.12);
+
+  --font-display: 'Orbitron', 'Rajdhani', 'Segoe UI', sans-serif;
+  --font-body: 'Rajdhani', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Share Tech Mono', 'Consolas', 'Courier New', monospace;
+
+  --grad-neon: linear-gradient(135deg, #00f0ff 0%, #8a2be2 55%, #ff2d95 100%);
+  --grad-line: linear-gradient(90deg, #00f0ff, #8a2be2, #ff2d95);
+}

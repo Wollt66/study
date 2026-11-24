@@ -1,0 +1,100 @@
+@startuml 架构图
+title 城市交通监控可视化大屏 — 总体架构（五层单向依赖）\n数据自底向上流动 · 事件自顶向下流动
+
+skinparam backgroundColor #050816
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontName "Microsoft YaHei"
+skinparam rectangle {
+  BorderColor #8A2BE2
+  BackgroundColor #0D142E
+  FontName "Microsoft YaHei"
+}
+skinparam folder {
+  BorderColor #00F0FF
+  BackgroundColor #0D142E
+  FontName "Microsoft YaHei"
+}
+skinparam arrow {
+  Color #FF2D95
+}
+
+folder "L5 视图层 (src/components + src/views)" as L5 {
+  rectangle "ScreenView\n（页面编排：事件转发/props 下发）" as ScreenView
+  rectangle "ScreenLayout\n（Grid 版式 + 缩放容器）" as Layout
+  rectangle "KpiCard ×4\nTimeClock\nControlBar\nFilterTagBar\nChartCard" as Widgets
+  rectangle "charts/\nMapChart · IntersectionRank\nAccidentPie · VehicleRing\nCongestionTrend · HourFlowHeat" as Charts
+}
+
+folder "L4 组合函数层 (src/composables)" as L4 {
+  rectangle "useECharts\n实例生命周期托管\n防抖 resize / dispose" as UseECharts
+  rectangle "useScreenAdapter\n1920×1080 等比缩放\nmin-scale + 居中" as UseAdapter
+}
+
+folder "L3 状态层 (src/stores/screen.ts)" as L3 {
+  rectangle "Pinia Store（SSOT 唯一数据源）\nstate: snapshot / regionStack\nselectedVehicleType / selectedAccidentType\ngetters: filteredKpi / filteredIntersections / ...\nactions: drillDown / backLevel / togglePause" as Store
+}
+
+folder "L2 模拟数据引擎层 (src/mock，纯 TS 零框架依赖)" as L2 {
+  rectangle "engine.ts\n模拟时钟(×60) / tick 调度" as Engine
+  rectangle "noise.ts\n双正弦+有界游走+双重钳制\ndouble-peak hourFactor" as Noise
+  rectangle "entities.ts\n34省/66市/864路口实体工厂" as Entities
+  rectangle "aggregate.ts\n自下而上聚合\n口径断言" as Aggregate
+  rectangle "constants.ts\n权重表/字典/引擎配置" as Constants
+}
+
+folder "L1 资源层 (src/assets + src/chart + src/styles)" as L1 {
+  rectangle "assets/geo/\n9 份 geoJSON\n（异步 chunk，断网可用）" as Geo
+  rectangle "chart/setup.ts\nECharts 按需注册\nchart/theme.ts\nneon 霓虹主题" as Chart
+  rectangle "styles/\n霓虹设计令牌\n圆角卡片通用类" as Styles
+  rectangle "services/mapRegistry\ngeoJSON 懒加载\nregisterMap 缓存判重" as Registry
+}
+
+' 上行数据流（左对齐注释）
+Engine <-- Store : applyTick(snapshot)\n＜启动/暂停控制
+Store <-- ScreenView : action 调用\n(drillDown / type-select / pause)
+UseECharts --> Store : watch(getters)\n＜派生数据 props
+Charts --> UseECharts : setOption(merge)
+Charts --> Registry : loadGeo(adcode)
+Registry --> Geo : 动态 import chunk
+Engine --> Noise : 演化计算
+Engine --> Entities : 实体演化
+Engine --> Aggregate : 市→省→全国聚合
+Entities --> Constants
+Aggregate --> Constants
+Charts --> Chart : init(el, 'neon')\n按需注册图表
+Widgets --> Layout : 插槽挂载
+ScreenView --> Layout : 版式编排
+ScreenView --> Widgets
+ScreenView --> Charts
+UseAdapter --> Layout : containerStyle
+Layout --> Styles
+Widgets --> Styles
+
+note right of L3
+  架构铁律：
+  1. 单向依赖 L5→L4→L3→L2→L1，
+     严禁反向（mock 引擎不感知 Vue，
+     可独立跑 Node 单测）
+  2. SSOT：业务数据/过滤状态/钻取栈
+     只存在于 Store，图表组件为
+     "无业务状态的渲染器"
+  3. 事件收敛：子组件 emit →
+     ScreenView → Store action，
+     组件之间禁止直接通信
+end note
+
+note left of L2
+  刷新周期 5s，可暂停
+  （冻结模拟时钟，
+  恢复相位无缝衔接）
+  趋势 288 点环形缓冲
+  活跃事故封顶 200 条
+end note
+
+note bottom of L1
+  构建分片：echarts vendor chunk 617KB(gzip 206KB)
+  全国 geoJSON 首屏异步 chunk，省市下钻瞬间才拉取
+  首屏 gzip 约 470KB，本地零网络请求
+end note
+@enduml

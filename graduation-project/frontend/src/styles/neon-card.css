@@ -1,0 +1,105 @@
+.neon-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-card);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-neon);
+  box-shadow:
+    var(--glow-cyan),
+    inset 0 0 24px rgba(0, 240, 255, 0.04);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.neon-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(0, 240, 255, 0.05), transparent 30%, transparent 70%, rgba(255, 45, 149, 0.05));
+}
+
+.neon-card__corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.neon-card__corner--tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid var(--neon-cyan);
+  border-left: 2px solid var(--neon-cyan);
+  border-top-left-radius: var(--radius-card);
+  filter: drop-shadow(0 0 4px var(--neon-cyan));
+}
+
+.neon-card__corner--tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid var(--neon-purple);
+  border-right: 2px solid var(--neon-purple);
+  border-top-right-radius: var(--radius-card);
+  filter: drop-shadow(0 0 4px var(--neon-purple));
+}
+
+.neon-card__corner--bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid var(--neon-purple);
+  border-left: 2px solid var(--neon-purple);
+  border-bottom-left-radius: var(--radius-card);
+  filter: drop-shadow(0 0 4px var(--neon-purple));
+}
+
+.neon-card__corner--br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid var(--neon-magenta);
+  border-right: 2px solid var(--neon-magenta);
+  border-bottom-right-radius: var(--radius-card);
+  filter: drop-shadow(0 0 4px var(--neon-magenta));
+}
+
+.neon-card__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 8px;
+  flex: none;
+}
+
+.neon-card__bar {
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--grad-line);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+}
+
+.neon-card__title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.35);
+}
+
+.neon-card__subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.neon-card__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 4px 10px 10px;
+}

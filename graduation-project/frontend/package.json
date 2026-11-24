@@ -1,0 +1,32 @@
+{
+  "name": "traffic-screen",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "城市交通监控可视化大屏（毕业设计·纯前端）",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "esbuild src/mock/engine.ts --bundle --format=esm --platform=node --outfile=.cache/engine.mjs --alias:@=./src --define:import.meta.env.DEV=false --log-level=error && node --test tests/",
+    "fetch-geo": "node scripts/fetch-geo.mjs"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
+    "echarts": "^5.6.0",
+    "element-plus": "^2.14.7",
+    "pinia": "^2.3.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vue-tsc": "^2.2.10"
+  }
+}

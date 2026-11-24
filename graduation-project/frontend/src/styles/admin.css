@@ -1,0 +1,189 @@
+/**
+ * 管理后台主题（C-UI-KIT@1）
+ *
+ * 覆盖 Element Plus CSS 变量为霓虹青 / 深色 / 圆角 10px，与大屏视觉同源。
+ * 仅在后台与登录页生效；大屏路由（`/`、`/about`）不使用 Element Plus 组件（R-108）。
+ */
+
+:root {
+  /* ---------- 主色与语义色 ---------- */
+  --el-color-primary: #00f0ff;
+  --el-color-primary-light-3: #4df4ff;
+  --el-color-primary-light-5: #80f7ff;
+  --el-color-primary-light-7: #b3faff;
+  --el-color-primary-light-8: #ccfcff;
+  --el-color-primary-light-9: #e5fdff;
+  --el-color-primary-dark-2: #00c0cc;
+
+  --el-color-success: #00ffa3;
+  --el-color-success-light-3: #4dffbc;
+  --el-color-success-light-5: #80ffc9;
+  --el-color-success-light-7: #b3ffd9;
+  --el-color-success-light-8: #ccffe6;
+  --el-color-success-light-9: #e5fff2;
+  --el-color-success-dark-2: #00cc82;
+
+  --el-color-warning: #ffb800;
+  --el-color-warning-light-3: #ffc640;
+  --el-color-warning-light-5: #ffd466;
+  --el-color-warning-light-7: #ffe299;
+  --el-color-warning-light-8: #ffedbf;
+  --el-color-warning-light-9: #fff6d9;
+  --el-color-warning-dark-2: #cc9300;
+
+  --el-color-danger: #ff3b3b;
+  --el-color-danger-light-3: #ff6666;
+  --el-color-danger-light-5: #ff9999;
+  --el-color-danger-light-7: #ffc4c4;
+  --el-color-danger-light-8: #ffd8d8;
+  --el-color-danger-light-9: #ffebeb;
+  --el-color-danger-dark-2: #cc2f2f;
+
+  --el-color-error: #ff3b3b;
+  --el-color-info: #4dc3ff;
+  --el-color-info-light-3: #7ad2ff;
+  --el-color-info-light-5: #a6e1ff;
+  --el-color-info-light-7: #c8ecff;
+  --el-color-info-light-8: #dbeffc;
+  --el-color-info-light-9: #edf7ff;
+  --el-color-info-dark-2: #3d9ccc;
+
+  /* ---------- 圆角 ---------- */
+  --el-border-radius-base: 10px;
+  --el-border-radius-small: 8px;
+  --el-border-radius-round: 999px;
+
+  /* ---------- 背景与文字 ---------- */
+  --el-bg-color: #050816;
+  --el-bg-color-page: #050816;
+  --el-bg-color-overlay: #0a1024;
+  --el-text-color-primary: #e6f7ff;
+  --el-text-color-regular: #c8d4f0;
+  --el-text-color-secondary: #9aa7c7;
+  --el-text-color-placeholder: #6b7899;
+  --el-text-color-disabled: #5a6580;
+
+  /* ---------- 边框与填充 ---------- */
+  --el-border-color: rgba(0, 240, 255, 0.24);
+  --el-border-color-light: rgba(0, 240, 255, 0.18);
+  --el-border-color-lighter: rgba(0, 240, 255, 0.12);
+  --el-border-color-extra-light: rgba(0, 240, 255, 0.08);
+  --el-border-color-dark: rgba(0, 240, 255, 0.32);
+  --el-border-color-darker: rgba(0, 240, 255, 0.4);
+  --el-fill-color: rgba(13, 20, 46, 0.72);
+  --el-fill-color-light: rgba(0, 240, 255, 0.08);
+  --el-fill-color-lighter: rgba(0, 240, 255, 0.05);
+  --el-fill-color-extra-light: rgba(0, 240, 255, 0.03);
+  --el-fill-color-dark: rgba(13, 20, 46, 0.88);
+  --el-fill-color-darker: rgba(5, 8, 22, 0.92);
+  --el-fill-color-blank: rgba(10, 16, 36, 0.86);
+  --el-mask-color: rgba(5, 8, 22, 0.8);
+  --el-mask-color-extra-light: rgba(5, 8, 22, 0.3);
+  --el-box-shadow: 0 0 18px rgba(0, 240, 255, 0.16);
+  --el-box-shadow-light: 0 0 12px rgba(0, 240, 255, 0.12);
+  --el-box-shadow-lighter: 0 0 8px rgba(0, 240, 255, 0.1);
+  --el-box-shadow-dark: 0 0 24px rgba(0, 240, 255, 0.2);
+
+  /* ---------- 组件级变量（菜单/表格） ---------- */
+  --el-menu-bg-color: transparent;
+  --el-menu-text-color: #c8d4f0;
+  --el-menu-hover-bg-color: rgba(0, 240, 255, 0.1);
+  --el-menu-active-color: #00f0ff;
+  --el-menu-item-height: 46px;
+
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: rgba(0, 240, 255, 0.08);
+  --el-table-header-text-color: #e6f7ff;
+  --el-table-text-color: #c8d4f0;
+  --el-table-border-color: rgba(0, 240, 255, 0.16);
+  --el-table-row-hover-bg-color: rgba(0, 240, 255, 0.08);
+
+  --el-dialog-bg-color: #0a1024;
+
+  /* ---------- 后台自定义变量 ---------- */
+  --admin-bg: #050816;
+  --admin-panel: linear-gradient(160deg, rgba(0, 240, 255, 0.08), transparent 46%, rgba(255, 45, 149, 0.08)),
+    rgba(13, 20, 46, 0.86);
+  --admin-panel-border: rgba(0, 240, 255, 0.28);
+  --admin-glow: 0 0 18px rgba(0, 240, 255, 0.16), inset 0 0 24px rgba(0, 240, 255, 0.04);
+}
+
+/* ---------- 后台通用面板 ---------- */
+.admin-panel {
+  padding: 20px;
+  border-radius: var(--el-border-radius-base);
+  border: 1px solid var(--admin-panel-border);
+  background: var(--admin-panel);
+  box-shadow: var(--admin-glow);
+  backdrop-filter: blur(8px);
+}
+
+.admin-panel__title {
+  margin: 0 0 16px;
+  color: var(--el-text-color-primary);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* 菜单激活项渐变下划线，保持霓虹同源 */
+.admin-menu .el-menu-item {
+  margin: 4px 6px;
+  border-radius: var(--el-border-radius-base);
+  color: var(--el-menu-text-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-menu .el-menu-item:hover {
+  color: #ffffff;
+  background: var(--el-menu-hover-bg-color);
+}
+
+.admin-menu .el-menu-item.is-active {
+  color: #00f0ff;
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.2), rgba(138, 43, 226, 0.12));
+  box-shadow: inset 0 0 12px rgba(0, 240, 255, 0.18), 0 0 10px rgba(0, 240, 255, 0.12);
+}
+
+/* 输入框聚焦辉光 */
+.el-input__wrapper.is-focus,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.65), 0 0 10px rgba(0, 240, 255, 0.25);
+}
+
+/* 按钮圆角与辉光 */
+.el-button {
+  border-radius: var(--el-border-radius-base);
+}
+
+.el-button--primary {
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+}
+
+/* 弹窗/抽屉圆角 */
+.el-dialog,
+.el-drawer {
+  border-radius: var(--el-border-radius-base);
+  border: 1px solid var(--admin-panel-border);
+}
+
+/* 表格无数据/加载文字颜色 */
+.el-table {
+  background: transparent;
+}
+
+/* 滚动条（后台页） */
+.admin-main ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.admin-main ::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(0, 240, 255, 0.28);
+}
+
+.admin-main ::-webkit-scrollbar-track {
+  background: transparent;
+}

@@ -1,0 +1,85 @@
+@startuml 用例图
+title 城市交通监控可视化大屏 — 用例图\n（用例编号对应需求追踪矩阵 UC 列；FR/NFR 编号见《需求规格说明书》）
+
+left to right direction
+skinparam backgroundColor #050816
+skinparam actorStyle awesome
+skinparam shadowing false
+skinparam usecase {
+  BackgroundColor #0D142E
+  BorderColor #00F0FF
+  ArrowColor #8A2BE2
+  FontName "Microsoft YaHei"
+}
+skinparam actor {
+  FontName "Microsoft YaHei"
+}
+skinparam rectangle {
+  BorderColor #FF2D95
+  FontName "Microsoft YaHei"
+}
+
+actor "交通指挥中心值班员" as Operator
+actor "答辩评委" as Judge
+actor "开发者（毕业生）" as Developer
+
+rectangle "城市交通监控可视化大屏" {
+  usecase "UC01\n浏览全国交通态势总览\n(热力/散点/KPI/图表)" as UC01
+  usecase "UC02\n地图下钻至省/市级视图" as UC02
+  usecase "UC03\n逐级返回上级视图" as UC03
+  usecase "UC04\n查看地图区域悬浮提示" as UC04
+  usecase "UC05\n按地区维度联动过滤全部图表" as UC05
+  usecase "UC06\n按事故类型联动过滤" as UC06
+  usecase "UC07\n按车辆类型联动过滤" as UC07
+  usecase "UC08\n查看/解除过滤条件标签" as UC08
+  usecase "UC09\n观察实时数据刷新\n(5s 周期平滑滚动)" as UC09
+  usecase "UC10\n暂停/恢复数据刷新" as UC10
+  usecase "UC11\n切换浏览器全屏" as UC11
+  usecase "UC12\n多分辨率窗口自适应缩放" as UC12
+  usecase "UC13\n查看系统说明页\n(技术亮点/架构)" as UC13
+}
+
+Operator --> UC01
+Operator --> UC02
+Operator --> UC03
+Operator --> UC04
+Operator --> UC06
+Operator --> UC07
+Operator --> UC08
+Operator --> UC09
+
+Judge --> UC02 : 现场指定\n下钻区域
+Judge --> UC10 : 现场指令\n冻结数据
+Judge --> UC01
+
+Developer --> UC10
+Developer --> UC11
+Developer --> UC12
+Developer --> UC13
+
+UC02 ..> UC05 : <<include>>
+UC05 ..> UC08 : <<include>>
+UC06 ..> UC08 : <<include>>
+UC07 ..> UC08 : <<include>>
+UC03 ..> UC05 : <<include>>
+UC10 ..> UC09 : <<extend>>
+UC12 ..> UC11 : <<extend>>
+
+note bottom of UC02
+  FR-02 / FR-03 / FR-06
+  钻取与联动一体发生：
+  地区维度变化时全部
+  图表同步过滤刷新
+end note
+
+note bottom of UC10
+  FR-11
+  暂停 = 冻结模拟时钟，
+  恢复后数据天然连续
+end note
+
+note bottom of UC13
+  /about 路由，答辩展示用，
+  不参与业务数据流
+end note
+@enduml
