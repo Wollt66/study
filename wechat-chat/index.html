@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=375, initial-scale=1.0">
+<title>码道小助手</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 375px; height: 720px; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #ededed; overflow: hidden; display: flex; flex-direction: column; }
+  .header { height: 48px; background: #0d3b2e; display: flex; flex-direction: column; align-items: center; justify-content: center; border-bottom: 2px solid #07c160; border-radius: 0 0 12px 12px; flex-shrink: 0; box-shadow: 0 0 12px rgba(7,193,96,0.3); }
+  .header h1 { font-size: 17px; font-weight: 500; color: #7fffaa; text-shadow: 0 0 8px rgba(127,255,170,0.5); }
+  .chat { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+
+  .time-divider { display: flex; justify-content: center; flex-shrink: 0; }
+  .time-divider span { background: #dadada; color: #888; font-size: 12px; padding: 3px 10px; border-radius: 10px; }
+
+  .msg { display: flex; align-items: flex-start; gap: 6px; max-width: 100%; animation: pop 0.3s ease; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .msg.self { flex-direction: row-reverse; }
+  .avatar { width: 40px; height: 40px; border-radius: 4px; flex-shrink: 0; }
+  .msg.other .avatar { background: #ffcc00; }
+  .msg.self .avatar { background: linear-gradient(135deg, #ff2d95, #7b2ff7); }
+  .bubble { max-width: 240px; padding: 10px 12px; font-size: 15px; line-height: 1.5; border-radius: 8px; position: relative; word-break: break-word; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+  .msg.other .bubble { background: #fff; color: #191919; }
+  .msg.self .bubble { background: linear-gradient(135deg, #ff2d95 0%, #7b2ff7 50%, #00f0ff 100%); color: #fff; box-shadow: 0 0 10px rgba(123,47,247,0.4); }
+  .msg.other .bubble::before { content: ""; position: absolute; left: -5px; top: 11px; width: 10px; height: 10px; background: #fff; border-radius: 0 0 0 3px; box-shadow: -1px 1px 2px rgba(0,0,0,0.08); clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .msg.self .bubble::before { content: ""; position: absolute; right: -5px; top: 11px; width: 10px; height: 10px; background: #7b2ff7; border-radius: 0 0 3px 0; box-shadow: 0 0 6px rgba(123,47,247,0.4); clip-path: polygon(0 0, 100% 100%, 0 100%); }
+
+  .typing { display: flex; align-items: flex-start; gap: 6px; animation: pop 0.3s ease; }
+  .typing .avatar { width: 40px; height: 40px; border-radius: 4px; background: #ffcc00; flex-shrink: 0; }
+  .typing .typing-bubble { background: #fff; border-radius: 8px; padding: 10px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.12); position: relative; }
+  .typing .typing-bubble::before { content: ""; position: absolute; left: -5px; top: 11px; width: 10px; height: 10px; background: #fff; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .typing .typing-text { color: #07c160; font-size: 14px; line-height: 1.5; }
+  .typing .typing-text .dot { display: inline-block; width: 5px; text-align: center; }
+  .typing .typing-text .dot:nth-child(1) { animation: dotPulse 1.2s infinite 0s; }
+  .typing .typing-text .dot:nth-child(2) { animation: dotPulse 1.2s infinite 0.2s; }
+  .typing .typing-text .dot:nth-child(3) { animation: dotPulse 1.2s infinite 0.4s; }
+  @keyframes dotPulse { 0%, 60%, 100% { opacity: 0.2; } 30% { opacity: 1; } }
+
+  .input-bar { height: 52px; background: #f7f7f7; border-top: 1px solid #d6d6d6; display: flex; align-items: center; padding: 0 12px; gap: 8px; flex-shrink: 0; }
+  .input-bar input { flex: 1; height: 36px; border: 1px solid #e0e0e0; border-radius: 4px; padding: 0 10px; font-size: 15px; background: #fff; outline: none; }
+  .input-bar .send-btn { width: 36px; height: 36px; border: none; border-radius: 4px; background: #ff5b5b; color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 8px rgba(255,91,91,0.4); }
+</style>
+</head>
+<body>
+  <div class="header"><h1>码道小助手</h1></div>
+  <div class="chat" id="chat"></div>
+  <div class="input-bar">
+    <input type="text" placeholder="说点什么...">
+    <button class="send-btn">▶</button>
+  </div>
+<script>
+  const SCRIPT = [
+    { type: "time", text: "14:30" },
+    { who: "other", text: "在吗？" },
+    { who: "self",  text: "在的，怎么啦？" },
+    { who: "other", text: "我想用 AI 做一个无限动画，听说可以用 git 边做边回退？" },
+    { who: "self",  text: "对，思路很简单" },
+    { type: "time", text: "14:31" },
+    { who: "other", text: "满意就 commit，不满意就 checkout / reset 回退再改" },
+    { who: "self",  text: "懂了，那我先去试试" },
+    { who: "other", text: "👍 有不懂的随时问" },
+  ];
+  const chat = document.getElementById("chat");
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  function scrollBottom() { chat.scrollTop = chat.scrollHeight; }
+
+  function addTime(text) {
+    const div = document.createElement("div");
+    div.className = "time-divider";
+    div.innerHTML = "<span>" + text + "</span>";
+    chat.appendChild(div);
+    scrollBottom();
+  }
+
+  function addMsg(who, text) {
+    const div = document.createElement("div");
+    div.className = "msg " + who;
+    div.innerHTML = '<div class="avatar"></div><div class="bubble"></div>';
+    div.querySelector(".bubble").textContent = text;
+    chat.appendChild(div);
+    scrollBottom();
+  }
+
+  function showTyping() {
+    const div = document.createElement("div");
+    div.className = "typing";
+    div.id = "typing-indicator";
+    div.innerHTML = '<div class="avatar"></div><div class="typing-bubble"><span class="typing-text">对方正在输入<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span></div>';
+    chat.appendChild(div);
+    scrollBottom();
+  }
+
+  function hideTyping() {
+    const el = document.getElementById("typing-indicator");
+    if (el) el.remove();
+  }
+
+  async function playLoop() {
+    while (true) {
+      chat.innerHTML = "";
+      for (const item of SCRIPT) {
+        if (item.type === "time") { addTime(item.text); await sleep(400); continue; }
+        if (item.who === "other") {
+          showTyping();
+          await sleep(900 + item.text.length * 60);
+          hideTyping();
+        }
+        addMsg(item.who, item.text);
+        await sleep(700);
+      }
+      await sleep(2500);
+    }
+  }
+
+  playLoop();
+</script>
+</body>
+</html>
