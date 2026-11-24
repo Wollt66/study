@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b1a3a;
+  font-family: 'Microsoft YaHei', sans-serif;
+  color: #fff;
+}
+
+/* 大屏容器：1920x1080 等比缩放 */
+.screen-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #0d2149 0%, #060d24 100%);
+}
+
+.screen {
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center center;
+  display: grid;
+  grid-template-rows: 80px 1fr;
+  gap: 16px;
+  padding: 16px 24px;
+}
+
+/* 头部 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, rgba(0, 180, 255, 0.15) 0%, transparent 100%);
+  border-bottom: 2px solid rgba(0, 180, 255, 0.4);
+  position: relative;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  background: linear-gradient(180deg, #fff 30%, #4db8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 4px;
+}
+
+.header .time {
+  font-size: 18px;
+  color: #4db8ff;
+}
+
+/* 主体三栏布局 */
+.body {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 16px;
+}
+
+.col {
+  display: grid;
+  grid-template-rows: auto auto 1fr 1fr;
+  gap: 16px;
+}
+
+/* 图表卡片 */
+.panel {
+  background: rgba(0, 80, 160, 0.15);
+  border: 1px solid rgba(0, 180, 255, 0.3);
+  border-radius: 4px;
+  padding: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel::before, .panel::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #00b4ff;
+}
+
+.panel::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.panel::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.panel-title {
+  font-size: 18px;
+  color: #4db8ff;
+  margin-bottom: 8px;
+  padding-left: 10px;
+  border-left: 3px solid #00b4ff;
+}
+
+.panel-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* 数字面板 */
+.number-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.number-card {
+  background: rgba(0, 80, 160, 0.2);
+  border: 1px solid rgba(0, 180, 255, 0.3);
+  border-radius: 4px;
+  padding: 16px;
+  text-align: center;
+}
+
+.number-card .label { font-size: 14px; color: #8ab4f8; }
+.number-card .value {
+  font-size: 36px;
+  font-weight: bold;
+  color: #00e4ff;
+  font-family: 'DIN', monospace;
+  margin-top: 8px;
+}
+.number-card .trend { font-size: 12px; margin-top: 4px; }
+.trend.up { color: #00e676; }
+.trend.down { color: #ff5252; }
+
+/* 排行榜 */
+.rank-list { list-style: none; }
+.rank-list li {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+}
+.rank-list .idx {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background: #1a3a6a;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+.rank-list li:nth-child(1) .idx { background: #ff5252; }
+.rank-list li:nth-child(2) .idx { background: #ff9800; }
+.rank-list li:nth-child(3) .idx { background: #ffc107; }
+.rank-list .bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(0, 180, 255, 0.15);
+  margin: 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.rank-list .bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00b4ff, #00e4ff);
+  transition: width 0.6s;
+}
