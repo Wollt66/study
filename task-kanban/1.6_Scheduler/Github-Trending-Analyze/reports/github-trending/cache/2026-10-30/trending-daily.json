@@ -1,0 +1,533 @@
+[
+  {
+    "period": "daily",
+    "rank": 1,
+    "owner": "thedotmack",
+    "name": "claude-mem",
+    "fullName": "thedotmack/claude-mem",
+    "projectLink": "https://github.com/thedotmack/claude-mem",
+    "description": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw...",
+    "language": "TypeScript",
+    "stars": 105442,
+    "forks": 9292,
+    "deltaStars": 1145,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "thedotmack",
+        "profile": "https://github.com/thedotmack"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "rudycelekli",
+        "profile": "https://github.com/rudycelekli"
+      },
+      {
+        "login": "cursoragent",
+        "profile": "https://github.com/cursoragent"
+      },
+      {
+        "login": "rodboev",
+        "profile": "https://github.com/rodboev"
+      }
+    ],
+    "trendingSnippet": "Sponsor\n\n Star\n\n thedotmack /\n\n claude-mem\n\n Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More\n\n TypeScript\n\n 105,442\n\n 9,292\n\n Built by\n\n 1,145 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 2,
+    "owner": "milind-soni",
+    "name": "OpenMausBot",
+    "fullName": "milind-soni/OpenMausBot",
+    "projectLink": "https://github.com/milind-soni/OpenMausBot",
+    "description": "Open-source Grok Bot alternative with a virtual machine that bots can use",
+    "language": "TypeScript",
+    "stars": 7996,
+    "forks": 1153,
+    "deltaStars": 899,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "milind-soni",
+        "profile": "https://github.com/milind-soni"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "aivsomkar",
+        "profile": "https://github.com/aivsomkar"
+      },
+      {
+        "login": "robinsonnblack",
+        "profile": "https://github.com/robinsonnblack"
+      },
+      {
+        "login": "bradhallett",
+        "profile": "https://github.com/bradhallett"
+      }
+    ],
+    "trendingSnippet": "Sponsor\n\n Star\n\n milind-soni /\n\n OpenMausBot\n\n Open-source Grok Bot alternative with a virtual machine that bots can use\n\n TypeScript\n\n 7,996\n\n 1,153\n\n Built by\n\n 899 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 3,
+    "owner": "pbakaus",
+    "name": "impeccable",
+    "fullName": "pbakaus/impeccable",
+    "projectLink": "https://github.com/pbakaus/impeccable",
+    "description": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
+    "language": "Rust",
+    "stars": 96431,
+    "forks": 5675,
+    "deltaStars": 2299,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "pbakaus",
+        "profile": "https://github.com/pbakaus"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "abdulwahabone",
+        "profile": "https://github.com/abdulwahabone"
+      },
+      {
+        "login": "cursoragent",
+        "profile": "https://github.com/cursoragent"
+      }
+    ],
+    "trendingSnippet": "Star\n\n pbakaus /\n\n impeccable\n\n The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.\n\n Rust\n\n 96,431\n\n 5,675\n\n Built by\n\n 2,299 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 4,
+    "owner": "CopilotKit",
+    "name": "OpenBot",
+    "fullName": "CopilotKit/OpenBot",
+    "projectLink": "https://github.com/CopilotKit/OpenBot",
+    "description": "Open-source AI coworkers that each get a computer of their own: a browser, files and tools, with every action decided before it happens and recorded after. Bring any AG-UI agent.",
+    "language": "TypeScript",
+    "stars": 8483,
+    "forks": 1073,
+    "deltaStars": 707,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "davidmckayv",
+        "profile": "https://github.com/davidmckayv"
+      },
+      {
+        "login": "kevin9327",
+        "profile": "https://github.com/kevin9327"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "Ayush7614",
+        "profile": "https://github.com/Ayush7614"
+      },
+      {
+        "login": "guidovizoso",
+        "profile": "https://github.com/guidovizoso"
+      }
+    ],
+    "trendingSnippet": "Star\n\n CopilotKit /\n\n OpenBot\n\n Open-source AI coworkers that each get a computer of their own: a browser, files and tools, with every action decided before it happens and recorded after. Bring any AG-UI agent.\n\n TypeScript\n\n 8,483\n\n 1,073\n\n Built by\n\n 707 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 5,
+    "owner": "Renhuai123",
+    "name": "ziwei-doushu",
+    "fullName": "Renhuai123/ziwei-doushu",
+    "projectLink": "https://github.com/Renhuai123/ziwei-doushu",
+    "description": "紫微斗数开源排盘引擎 — 基于倪海厦《天纪》体系，含完整排盘算法、四化系统、格局知识库、古籍原文数据",
+    "language": "TypeScript",
+    "stars": 10806,
+    "forks": 2164,
+    "deltaStars": 1146,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "Renhuai123",
+        "profile": "https://github.com/Renhuai123"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "Renhuai",
+        "profile": "https://github.com/Renhuai"
+      },
+      {
+        "login": "sakura168899-debug",
+        "profile": "https://github.com/sakura168899-debug"
+      }
+    ],
+    "trendingSnippet": "Star\n\n Renhuai123 /\n\n ziwei-doushu\n\n 紫微斗数开源排盘引擎 — 基于倪海厦《天纪》体系，含完整排盘算法、四化系统、格局知识库、古籍原文数据\n\n TypeScript\n\n 10,806\n\n 2,164\n\n Built by\n\n 1,146 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 6,
+    "owner": "expo",
+    "name": "skills",
+    "fullName": "expo/skills",
+    "projectLink": "https://github.com/expo/skills",
+    "description": "A collection of AI agent skills for working with Expo projects and Expo Application Services",
+    "language": "Shell",
+    "stars": 3796,
+    "forks": 241,
+    "deltaStars": 233,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "EvanBacon",
+        "profile": "https://github.com/EvanBacon"
+      },
+      {
+        "login": "Kudo",
+        "profile": "https://github.com/Kudo"
+      },
+      {
+        "login": "gwdp",
+        "profile": "https://github.com/gwdp"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "ide",
+        "profile": "https://github.com/ide"
+      }
+    ],
+    "trendingSnippet": "Star\n\n expo /\n\n skills\n\n A collection of AI agent skills for working with Expo projects and Expo Application Services\n\n Shell\n\n 3,796\n\n 241\n\n Built by\n\n 233 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 7,
+    "owner": "macro-inc",
+    "name": "macro",
+    "fullName": "macro-inc/macro",
+    "projectLink": "https://github.com/macro-inc/macro",
+    "description": "Macro is a unified workspace for teams: email, chat, docs, tasks, agents, calls, and CRM — @-linked together with shared AI memory.",
+    "language": "Rust",
+    "stars": 5709,
+    "forks": 536,
+    "deltaStars": 379,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "gbirman",
+        "profile": "https://github.com/gbirman"
+      },
+      {
+        "login": "whutchinson98",
+        "profile": "https://github.com/whutchinson98"
+      },
+      {
+        "login": "synoet",
+        "profile": "https://github.com/synoet"
+      },
+      {
+        "login": "sedson",
+        "profile": "https://github.com/sedson"
+      },
+      {
+        "login": "peterchinman",
+        "profile": "https://github.com/peterchinman"
+      }
+    ],
+    "trendingSnippet": "Star\n\n macro-inc /\n\n macro\n\n Macro is a unified workspace for teams: email, chat, docs, tasks, agents, calls, and CRM — @-linked together with shared AI memory.\n\n Rust\n\n 5,709\n\n 536\n\n Built by\n\n 379 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 8,
+    "owner": "mattpocock",
+    "name": "skills",
+    "fullName": "mattpocock/skills",
+    "projectLink": "https://github.com/mattpocock/skills",
+    "description": "Skills for Real Engineers. Straight from my .agents directory.",
+    "language": "Shell",
+    "stars": 307046,
+    "forks": 25829,
+    "deltaStars": 882,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "mattpocock",
+        "profile": "https://github.com/mattpocock"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "gabimoncha",
+        "profile": "https://github.com/gabimoncha"
+      }
+    ],
+    "trendingSnippet": "Sponsor\n\n Star\n\n mattpocock /\n\n skills\n\n Skills for Real Engineers. Straight from my .agents directory.\n\n Shell\n\n 307,046\n\n 25,829\n\n Built by\n\n 882 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 9,
+    "owner": "pingdotgg",
+    "name": "t3code",
+    "fullName": "pingdotgg/t3code",
+    "projectLink": "https://github.com/pingdotgg/t3code",
+    "description": "",
+    "language": "TypeScript",
+    "stars": 32334,
+    "forks": 8569,
+    "deltaStars": 920,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "juliusmarminge",
+        "profile": "https://github.com/juliusmarminge"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "t3dotgg",
+        "profile": "https://github.com/t3dotgg"
+      },
+      {
+        "login": "maria-rcks",
+        "profile": "https://github.com/maria-rcks"
+      },
+      {
+        "login": "codex",
+        "profile": "https://github.com/codex"
+      }
+    ],
+    "trendingSnippet": "Star\n\n pingdotgg /\n\n t3code\n\n TypeScript\n\n 32,334\n\n 8,569\n\n Built by\n\n 920 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 10,
+    "owner": "HKUDS",
+    "name": "DeepTutor",
+    "fullName": "HKUDS/DeepTutor",
+    "projectLink": "https://github.com/HKUDS/DeepTutor",
+    "description": "DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/ .",
+    "language": "Python",
+    "stars": 51325,
+    "forks": 6293,
+    "deltaStars": 2282,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "pancacake",
+        "profile": "https://github.com/pancacake"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "Pinkllow",
+        "profile": "https://github.com/Pinkllow"
+      },
+      {
+        "login": "evan188199-tech",
+        "profile": "https://github.com/evan188199-tech"
+      }
+    ],
+    "trendingSnippet": "Star\n\n HKUDS /\n\n DeepTutor\n\n DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/ .\n\n Python\n\n 51,325\n\n 6,293\n\n Built by\n\n 2,282 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 11,
+    "owner": "anthropics",
+    "name": "skills",
+    "fullName": "anthropics/skills",
+    "projectLink": "https://github.com/anthropics/skills",
+    "description": "Public repository for Agent Skills",
+    "language": "Python",
+    "stars": 184989,
+    "forks": 21874,
+    "deltaStars": 287,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "rlancemartin",
+        "profile": "https://github.com/rlancemartin"
+      },
+      {
+        "login": "klazuka",
+        "profile": "https://github.com/klazuka"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "cj-ant",
+        "profile": "https://github.com/cj-ant"
+      },
+      {
+        "login": "ericharmeling",
+        "profile": "https://github.com/ericharmeling"
+      }
+    ],
+    "trendingSnippet": "Star\n\n anthropics /\n\n skills\n\n Public repository for Agent Skills\n\n Python\n\n 184,989\n\n 21,874\n\n Built by\n\n 287 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 12,
+    "owner": "JetBrains",
+    "name": "thinkrail",
+    "fullName": "JetBrains/thinkrail",
+    "projectLink": "https://github.com/JetBrains/thinkrail",
+    "description": "Vibe code with pi in a lightweight, real IDE that customises itself around the way you work — The Vibe You Need",
+    "language": "TypeScript",
+    "stars": 6368,
+    "forks": 347,
+    "deltaStars": 717,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "rsolmano",
+        "profile": "https://github.com/rsolmano"
+      },
+      {
+        "login": "danyaberezun",
+        "profile": "https://github.com/danyaberezun"
+      },
+      {
+        "login": "OLavrik",
+        "profile": "https://github.com/OLavrik"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "SBOne-Kenobi",
+        "profile": "https://github.com/SBOne-Kenobi"
+      }
+    ],
+    "trendingSnippet": "Star\n\n JetBrains /\n\n thinkrail\n\n Vibe code with pi in a lightweight, real IDE that customises itself around the way you work — The Vibe You Need\n\n TypeScript\n\n 6,368\n\n 347\n\n Built by\n\n 717 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 13,
+    "owner": "togg53192-cmd",
+    "name": "jailbreaks",
+    "fullName": "togg53192-cmd/jailbreaks",
+    "projectLink": "https://github.com/togg53192-cmd/jailbreaks",
+    "description": "LIST OF ALL MY JAILBREAKS",
+    "language": "",
+    "stars": 10052,
+    "forks": 1428,
+    "deltaStars": 2053,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "togg53192-cmd",
+        "profile": "https://github.com/togg53192-cmd"
+      },
+      {
+        "login": "raghavraut",
+        "profile": "https://github.com/raghavraut"
+      },
+      {
+        "login": "metalim",
+        "profile": "https://github.com/metalim"
+      },
+      {
+        "login": "reblox01",
+        "profile": "https://github.com/reblox01"
+      }
+    ],
+    "trendingSnippet": "Star\n\n togg53192-cmd /\n\n jailbreaks\n\n LIST OF ALL MY JAILBREAKS\n\n 10,052\n\n 1,428\n\n Built by\n\n 2,053 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 14,
+    "owner": "obra",
+    "name": "superpowers",
+    "fullName": "obra/superpowers",
+    "projectLink": "https://github.com/obra/superpowers",
+    "description": "An agentic skills framework & software development methodology that works.",
+    "language": "Shell",
+    "stars": 309117,
+    "forks": 27489,
+    "deltaStars": 1255,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "obra",
+        "profile": "https://github.com/obra"
+      },
+      {
+        "login": "arittr",
+        "profile": "https://github.com/arittr"
+      },
+      {
+        "login": "claude",
+        "profile": "https://github.com/claude"
+      },
+      {
+        "login": "clkao",
+        "profile": "https://github.com/clkao"
+      },
+      {
+        "login": "arimu1",
+        "profile": "https://github.com/arimu1"
+      }
+    ],
+    "trendingSnippet": "Sponsor\n\n Star\n\n obra /\n\n superpowers\n\n An agentic skills framework & software development methodology that works.\n\n Shell\n\n 309,117\n\n 27,489\n\n Built by\n\n 1,255 stars today"
+  },
+  {
+    "period": "daily",
+    "rank": 15,
+    "owner": "lightpanda-io",
+    "name": "browser",
+    "fullName": "lightpanda-io/browser",
+    "projectLink": "https://github.com/lightpanda-io/browser",
+    "description": "Lightpanda: the headless browser designed for AI and automation",
+    "language": "Zig",
+    "stars": 37916,
+    "forks": 1849,
+    "deltaStars": 559,
+    "deltaLabel": "今日新增",
+    "contributors": [
+      {
+        "login": "karlseguin",
+        "profile": "https://github.com/karlseguin"
+      },
+      {
+        "login": "krichprollsch",
+        "profile": "https://github.com/krichprollsch"
+      },
+      {
+        "login": "arrufat",
+        "profile": "https://github.com/arrufat"
+      },
+      {
+        "login": "mookums",
+        "profile": "https://github.com/mookums"
+      },
+      {
+        "login": "nikneym",
+        "profile": "https://github.com/nikneym"
+      }
+    ],
+    "trendingSnippet": "Star\n\n lightpanda-io /\n\n browser\n\n Lightpanda: the headless browser designed for AI and automation\n\n Zig\n\n 37,916\n\n 1,849\n\n Built by\n\n 559 stars today"
+  }
+]
